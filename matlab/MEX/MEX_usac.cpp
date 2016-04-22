@@ -82,15 +82,17 @@ int readPROSACDataFromPointer(double *DATA, int ROWS, std::vector<unsigned int> 
 
 void help() {
       mexErrMsgTxt("USAC Matlab wrapper\n\n"
-      "[F,inliers] = MEX_usac(ptype, cfgfile, [matches], [prosac sort])\n"
+      "[F,inliers] = MEX_usac(ptype, cfgfile, [matches], [sorting])\n"
       "   \n"
       "   ptype     0:fundamental 1:homography\n"
       "   cfgfile   path to the config file\n"
-      "   matches   override 2D matches in the config file (4 columns)\n"
-      "   prosac    override the sort specified in the config file (1 column)\n"
+      "   matches   input 2D matches (4 columns). Overrides the file specified in cfgfile\n"
+      "   sorting   PROSAC match sorting, a column vector with the indeces of the matches\n"
+      "             ordered by decreasing quality. Only used if PROSAC option is activated\n"
+      "             in cfgfile. Overrides the file specified in cfgfile\n"
       "   \n"
       "   F         3x3 result matrix\n"
-      "   inliers   column vector\n");
+      "   inliers   column vector with inliers mask\n");
 }
 
 
