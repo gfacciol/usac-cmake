@@ -1,0 +1,12 @@
+# Created by Gabriele Facciolo on 22/04/16
+
+all:
+   gcc -DHAVE_XLOCALE_H -Iext/libconfig-1.4.5/lib -c ext/libconfig-1.4.5/lib/grammar.c
+   gcc -DHAVE_XLOCALE_H -Iext/libconfig-1.4.5/lib -c ext/libconfig-1.4.5/lib/libconfig.c
+   gcc -DHAVE_XLOCALE_H -Iext/libconfig-1.4.5/lib -c ext/libconfig-1.4.5/lib/scanctx.c
+   gcc -DHAVE_XLOCALE_H -Iext/libconfig-1.4.5/lib -c ext/libconfig-1.4.5/lib/scanner.c
+   gcc -DHAVE_XLOCALE_H -Iext/libconfig-1.4.5/lib -c ext/libconfig-1.4.5/lib/strbuf.c
+   
+   g++ -DHAVE_XLOCALE_H -Iext/libconfig-1.4.5/lib -c ext/libconfig-1.4.5/lib/libconfigcpp.cc
+   
+   g++ -Iext/libconfig-1.4.5/lib -Isrc/  RunSingleTest/RunSingleTest.cpp src/*/*.cpp *.o -llapack -o usac_test
