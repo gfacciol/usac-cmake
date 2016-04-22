@@ -1,6 +1,7 @@
 #include "FundmatrixFunctions.h"
 #include <cstring>
 #include <iostream>
+#include <cmath>
 
 namespace FTools
 {

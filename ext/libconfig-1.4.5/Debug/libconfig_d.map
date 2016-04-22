@@ -1,0 +1,442 @@
+ libconfig_d
+
+ Timestamp is 4c2ce2f9 (Thu Jul 01 14:48:25 2010)
+
+ Preferred load address is 10000000
+
+ Start         Length     Name                   Class
+ 0001:00000000 00009eafH .text                   CODE
+ 0002:00000000 00000104H .CRT$XCA                DATA
+ 0002:00000104 00000104H .CRT$XCZ                DATA
+ 0002:00000208 00000104H .CRT$XIA                DATA
+ 0002:0000030c 00000104H .CRT$XIAA               DATA
+ 0002:00000410 00000104H .CRT$XIC                DATA
+ 0002:00000514 00000104H .CRT$XIZ                DATA
+ 0002:00000620 00001379H .rdata                  DATA
+ 0002:0000199c 0000016fH .rdata$debug            DATA
+ 0002:00001b10 00000104H .rdata$sxdata           DATA
+ 0002:00001c14 00000104H .rtc$IAA                DATA
+ 0002:00001d18 00000104H .rtc$IZZ                DATA
+ 0002:00001e1c 00000104H .rtc$TAA                DATA
+ 0002:00001f20 00000104H .rtc$TZZ                DATA
+ 0002:00002028 0000019eH .xdata$x                DATA
+ 0002:000021d0 00000970H .edata                  DATA
+ 0003:00000000 000006d0H .data                   DATA
+ 0003:000006d0 00000380H .bss                    DATA
+ 0004:00000000 00000028H .idata$2                DATA
+ 0004:00000028 00000014H .idata$3                DATA
+ 0004:0000003c 000001a0H .idata$4                DATA
+ 0004:000001dc 000001a0H .idata$5                DATA
+ 0004:0000037c 00000550H .idata$6                DATA
+
+  Address         Publics by Value              Rva+Base       Lib:Object
+
+ 0000:00000000       __except_list              00000000     <absolute>
+ 0000:00000001       ___safe_se_handler_count   00000001     <absolute>
+ 0000:00009876       __ldused                   00009876     <absolute>
+ 0000:00009876       __fltused                  00009876     <absolute>
+ 0000:00000000       ___ImageBase               10000000     <linker-defined>
+ 0001:000003d0       _libconfig_yyerror         100013d0 f   grammar.obj
+ 0001:00000410       _libconfig_yyparse         10001410 f   grammar.obj
+ 0001:000019e0       _DllMain@12                100029e0 f   libconfig.obj
+ 0001:000019f0       _config_read               100029f0 f   libconfig.obj
+ 0001:00001bc0       _config_read_string        10002bc0 f   libconfig.obj
+ 0001:00001be0       _config_write              10002be0 f   libconfig.obj
+ 0001:00002340       _config_read_file          10003340 f   libconfig.obj
+ 0001:000023b0       _config_write_file         100033b0 f   libconfig.obj
+ 0001:00002420       _config_destroy            10003420 f   libconfig.obj
+ 0001:000025e0       _config_init               100035e0 f   libconfig.obj
+ 0001:00002630       _config_set_auto_convert   10003630 f   libconfig.obj
+ 0001:00002660       _config_get_auto_convert   10003660 f   libconfig.obj
+ 0001:00002680       _config_setting_get_int    10003680 f   libconfig.obj
+ 0001:00002720       _config_setting_get_int64  10003720 f   libconfig.obj
+ 0001:00002780       _config_setting_lookup_int 10003780 f   libconfig.obj
+ 0001:000027d0       _config_setting_lookup_int64 100037d0 f   libconfig.obj
+ 0001:00002820       _config_setting_lookup_float 10003820 f   libconfig.obj
+ 0001:00002870       _config_setting_lookup_string 10003870 f   libconfig.obj
+ 0001:000028c0       _config_setting_lookup_bool 100038c0 f   libconfig.obj
+ 0001:00002910       _config_setting_set_int    10003910 f   libconfig.obj
+ 0001:00002980       _config_setting_set_int64  10003980 f   libconfig.obj
+ 0001:00002a50       _config_setting_get_float  10003a50 f   libconfig.obj
+ 0001:00002ad0       _config_setting_set_float  10003ad0 f   libconfig.obj
+ 0001:00002b80       _config_setting_get_bool   10003b80 f   libconfig.obj
+ 0001:00002bb0       _config_setting_set_bool   10003bb0 f   libconfig.obj
+ 0001:00002bf0       _config_setting_get_string 10003bf0 f   libconfig.obj
+ 0001:00002c20       _config_setting_set_string 10003c20 f   libconfig.obj
+ 0001:00002ca0       _config_setting_set_format 10003ca0 f   libconfig.obj
+ 0001:00002cf0       _config_setting_get_format 10003cf0 f   libconfig.obj
+ 0001:00002d00       _config_lookup_from        10003d00 f   libconfig.obj
+ 0001:00002de0       _config_lookup             10003de0 f   libconfig.obj
+ 0001:00002e00       _config_lookup_string      10003e00 f   libconfig.obj
+ 0001:00002e50       _config_lookup_int         10003e50 f   libconfig.obj
+ 0001:00002ea0       _config_lookup_int64       10003ea0 f   libconfig.obj
+ 0001:00002ef0       _config_lookup_float       10003ef0 f   libconfig.obj
+ 0001:00002f40       _config_lookup_bool        10003f40 f   libconfig.obj
+ 0001:00002f90       _config_setting_get_int_elem 10003f90 f   libconfig.obj
+ 0001:00002fd0       _config_setting_set_int_elem 10003fd0 f   libconfig.obj
+ 0001:00003210       _config_setting_get_int64_elem 10004210 f   libconfig.obj
+ 0001:00003260       _config_setting_set_int64_elem 10004260 f   libconfig.obj
+ 0001:00003300       _config_setting_get_float_elem 10004300 f   libconfig.obj
+ 0001:00003340       _config_setting_set_float_elem 10004340 f   libconfig.obj
+ 0001:000033e0       _config_setting_get_bool_elem 100043e0 f   libconfig.obj
+ 0001:00003420       _config_setting_set_bool_elem 10004420 f   libconfig.obj
+ 0001:000034c0       _config_setting_get_string_elem 100044c0 f   libconfig.obj
+ 0001:00003500       _config_setting_set_string_elem 10004500 f   libconfig.obj
+ 0001:000035a0       _config_setting_get_elem   100045a0 f   libconfig.obj
+ 0001:00003600       _config_setting_get_member 10004600 f   libconfig.obj
+ 0001:000037c0       _config_set_destructor     100047c0 f   libconfig.obj
+ 0001:000037d0       _config_setting_length     100047d0 f   libconfig.obj
+ 0001:00003820       _config_setting_set_hook   10004820 f   libconfig.obj
+ 0001:00003830       _config_setting_add        10004830 f   libconfig.obj
+ 0001:00003970       _config_setting_remove     10004970 f   libconfig.obj
+ 0001:00003a50       _config_setting_remove_elem 10004a50 f   libconfig.obj
+ 0001:00003ae0       _config_setting_index      10004ae0 f   libconfig.obj
+ 0001:000043b0       _scanctx_init              100053b0 f   scanctx.obj
+ 0001:000044d0       _scanctx_cleanup           100054d0 f   scanctx.obj
+ 0001:00004540       _scanctx_push_include      10005540 f   scanctx.obj
+ 0001:00004620       _scanctx_pop_include       10005620 f   scanctx.obj
+ 0001:00004680       _scanctx_take_string       10005680 f   scanctx.obj
+ 0001:000046c0       _scanctx_current_filename  100056c0 f   scanctx.obj
+ 0001:000047d0       _libconfig_yylex           100057d0 f   scanner.obj
+ 0001:000062a0       _libconfig_yyrestart       100072a0 f   scanner.obj
+ 0001:00006360       _libconfig_yy_switch_to_buffer 10007360 f   scanner.obj
+ 0001:000064b0       _libconfig_yy_create_buffer 100074b0 f   scanner.obj
+ 0001:00006540       _libconfig_yy_delete_buffer 10007540 f   scanner.obj
+ 0001:00006690       _libconfig_yy_flush_buffer 10007690 f   scanner.obj
+ 0001:00006720       _libconfig_yypush_buffer_state 10007720 f   scanner.obj
+ 0001:00006810       _libconfig_yypop_buffer_state 10007810 f   scanner.obj
+ 0001:00006a00       _libconfig_yy_scan_buffer  10007a00 f   scanner.obj
+ 0001:00006ae0       _libconfig_yy_scan_string  10007ae0 f   scanner.obj
+ 0001:00006b10       _libconfig_yy_scan_bytes   10007b10 f   scanner.obj
+ 0001:00006c00       _libconfig_yyget_extra     10007c00 f   scanner.obj
+ 0001:00006c20       _libconfig_yyget_lineno    10007c20 f   scanner.obj
+ 0001:00006c70       _libconfig_yyget_column    10007c70 f   scanner.obj
+ 0001:00006cc0       _libconfig_yyget_in        10007cc0 f   scanner.obj
+ 0001:00006ce0       _libconfig_yyget_out       10007ce0 f   scanner.obj
+ 0001:00006d00       _libconfig_yyget_leng      10007d00 f   scanner.obj
+ 0001:00006d20       _libconfig_yyget_text      10007d20 f   scanner.obj
+ 0001:00006d40       _libconfig_yyset_extra     10007d40 f   scanner.obj
+ 0001:00006d60       _libconfig_yyset_lineno    10007d60 f   scanner.obj
+ 0001:00006dc0       _libconfig_yyset_column    10007dc0 f   scanner.obj
+ 0001:00006e20       _libconfig_yyset_in        10007e20 f   scanner.obj
+ 0001:00006e40       _libconfig_yyset_out       10007e40 f   scanner.obj
+ 0001:00006e60       _libconfig_yyget_debug     10007e60 f   scanner.obj
+ 0001:00006e80       _libconfig_yyset_debug     10007e80 f   scanner.obj
+ 0001:00006ea0       _libconfig_yyget_lval      10007ea0 f   scanner.obj
+ 0001:00006ec0       _libconfig_yyset_lval      10007ec0 f   scanner.obj
+ 0001:00006ee0       _libconfig_yylex_init      10007ee0 f   scanner.obj
+ 0001:00006f50       _libconfig_yylex_init_extra 10007f50 f   scanner.obj
+ 0001:00007070       _libconfig_yylex_destroy   10008070 f   scanner.obj
+ 0001:00007160       _libconfig_yyalloc         10008160 f   scanner.obj
+ 0001:00007180       _libconfig_yyrealloc       10008180 f   scanner.obj
+ 0001:000071a0       _libconfig_yyfree          100081a0 f   scanner.obj
+ 0001:00007c30       _strbuf_release            10008c30 f   strbuf.obj
+ 0001:00007c60       _strbuf_append             10008c60 f   strbuf.obj
+ 0001:00007d16       _free                      10008d16 f   MSVCRTD:MSVCR90D.dll
+ 0001:00007d1c       _malloc                    10008d1c f   MSVCRTD:MSVCR90D.dll
+ 0001:00007d30       @__security_check_cookie@4 10008d30 f   MSVCRTD:secchk.obj
+ 0001:00007d40       _memset                    10008d40 f   MSVCRTD:MSVCR90D.dll
+ 0001:00007d46       _setlocale                 10008d46 f   MSVCRTD:MSVCR90D.dll
+ 0001:00007d4c       __configthreadlocale       10008d4c f   MSVCRTD:MSVCR90D.dll
+ 0001:00007d52       _fputc                     10008d52 f   MSVCRTD:MSVCR90D.dll
+ 0001:00007d58       _fprintf                   10008d58 f   MSVCRTD:MSVCR90D.dll
+ 0001:00007d5e       _fputs                     10008d5e f   MSVCRTD:MSVCR90D.dll
+ 0001:00007d64       _strlen                    10008d64 f   MSVCRTD:MSVCR90D.dll
+ 0001:00007d6a       _strcat                    10008d6a f   MSVCRTD:MSVCR90D.dll
+ 0001:00007d70       _strchr                    10008d70 f   MSVCRTD:MSVCR90D.dll
+ 0001:00007d76       __snprintf                 10008d76 f   MSVCRTD:MSVCR90D.dll
+ 0001:00007d7c       _fclose                    10008d7c f   MSVCRTD:MSVCR90D.dll
+ 0001:00007d82       _fopen                     10008d82 f   MSVCRTD:MSVCR90D.dll
+ 0001:00007d88       _calloc                    10008d88 f   MSVCRTD:MSVCR90D.dll
+ 0001:00007d90       __ftol2_sse                10008d90 f   MSVCRTD:ftol2.obj
+ 0001:00007d99       __ftol2_pentium4           10008d99 f   MSVCRTD:ftol2.obj
+ 0001:00007dac       __ftol2_sse_excpt          10008dac f   MSVCRTD:ftol2.obj
+ 0001:00007dc6       __ftol2                    10008dc6 f   MSVCRTD:ftol2.obj
+ 0001:00007e3c       _atoi                      10008e3c f   MSVCRTD:MSVCR90D.dll
+ 0001:00007e42       _realloc                   10008e42 f   MSVCRTD:MSVCR90D.dll
+ 0001:00007e48       _isdigit                   10008e48 f   MSVCRTD:MSVCR90D.dll
+ 0001:00007e4e       _isalpha                   10008e4e f   MSVCRTD:MSVCR90D.dll
+ 0001:00007e54       _memmove                   10008e54 f   MSVCRTD:MSVCR90D.dll
+ 0001:00007e5a       _strcmp                    10008e5a f   MSVCRTD:MSVCR90D.dll
+ 0001:00007e60       _fwrite                    10008e60 f   MSVCRTD:MSVCR90D.dll
+ 0001:00007e66       _strtoul                   10008e66 f   MSVCRTD:MSVCR90D.dll
+ 0001:00007e6c       __atoi64                   10008e6c f   MSVCRTD:MSVCR90D.dll
+ 0001:00007e72       _atof                      10008e72 f   MSVCRTD:MSVCR90D.dll
+ 0001:00007e78       _strtol                    10008e78 f   MSVCRTD:MSVCR90D.dll
+ 0001:00007e7e       ___iob_func                10008e7e f   MSVCRTD:MSVCR90D.dll
+ 0001:00007e84       __strtoui64                10008e84 f   MSVCRTD:MSVCR90D.dll
+ 0001:00007e8a       _clearerr                  10008e8a f   MSVCRTD:MSVCR90D.dll
+ 0001:00007e90       _fread                     10008e90 f   MSVCRTD:MSVCR90D.dll
+ 0001:00007e96       __errno                    10008e96 f   MSVCRTD:MSVCR90D.dll
+ 0001:00007e9c       _ferror                    10008e9c f   MSVCRTD:MSVCR90D.dll
+ 0001:00007ea2       _getc                      10008ea2 f   MSVCRTD:MSVCR90D.dll
+ 0001:00007ea8       _exit                      10008ea8 f   MSVCRTD:MSVCR90D.dll
+ 0001:00007eae       _strcpy                    10008eae f   MSVCRTD:MSVCR90D.dll
+ 0001:00007f40       __CRT_INIT@12              10008f40 f   MSVCRTD:crtdll.obj
+ 0001:00008250       _NtCurrentTeb              10009250 f i MSVCRTD:crtdll.obj
+ 0001:00008260       __DllMainCRTStartup@12     10009260 f   MSVCRTD:crtdll.obj
+ 0001:00008460       ___report_gsfailure        10009460 f   MSVCRTD:gs_report.obj
+ 0001:00008570       __get_sse2_info            10009570 f   MSVCRTD:cpu_disp.obj
+ 0001:000086a0       ___sse2_available_init     100096a0 f   MSVCRTD:cpu_disp.obj
+ 0001:000086c0       ___clean_type_info_names   100096c0 f   MSVCRTD:tncleanup.obj
+ 0001:000086e0       __onexit                   100096e0 f   MSVCRTD:atonexit.obj
+ 0001:000087f0       _atexit                    100097f0 f   MSVCRTD:atonexit.obj
+ 0001:00008810       __RTC_Initialize           10009810 f   MSVCRTD:_initsect_.obj
+ 0001:00008840       __RTC_Terminate            10009840 f   MSVCRTD:_initsect_.obj
+ 0001:00008866       __encode_pointer           10009866 f   MSVCRTD:MSVCR90D.dll
+ 0001:0000886c       __malloc_dbg               1000986c f   MSVCRTD:MSVCR90D.dll
+ 0001:00008872       __free_dbg                 10009872 f   MSVCRTD:MSVCR90D.dll
+ 0001:00008878       __encoded_null             10009878 f   MSVCRTD:MSVCR90D.dll
+ 0001:0000887e       __decode_pointer           1000987e f   MSVCRTD:MSVCR90D.dll
+ 0001:00008884       __CrtSetCheckCount         10009884 f   MSVCRTD:MSVCR90D.dll
+ 0001:00008890       __ValidateImageBase        10009890 f   MSVCRTD:pesect.obj
+ 0001:000088f0       __FindPESection            100098f0 f   MSVCRTD:pesect.obj
+ 0001:00008970       __IsNonwritableInCurrentImage 10009970 f   MSVCRTD:pesect.obj
+ 0001:00008a82       __initterm                 10009a82 f   MSVCRTD:MSVCR90D.dll
+ 0001:00008a88       __initterm_e               10009a88 f   MSVCRTD:MSVCR90D.dll
+ 0001:00008a8e       __amsg_exit                10009a8e f   MSVCRTD:MSVCR90D.dll
+ 0001:00008aa0       ___security_init_cookie    10009aa0 f   MSVCRTD:gs_support.obj
+ 0001:00008b7c       ___CppXcptFilter           10009b7c f   MSVCRTD:MSVCR90D.dll
+ 0001:00008b90       __except_handler4          10009b90 f   MSVCRTD:chandler4gs.obj
+ 0001:00008bba       __crt_debugger_hook        10009bba f   MSVCRTD:MSVCR90D.dll
+ 0001:00008bc0       ___clean_type_info_names_internal 10009bc0 f   MSVCRTD:MSVCR90D.dll
+ 0001:00008bc6       __unlock                   10009bc6 f   MSVCRTD:MSVCR90D.dll
+ 0001:00008bcc       ___dllonexit               10009bcc f   MSVCRTD:MSVCR90D.dll
+ 0001:00008bd2       __lock                     10009bd2 f   MSVCRTD:MSVCR90D.dll
+ 0001:00008bd8       __except_handler4_common   10009bd8 f   MSVCRTD:MSVCR90D.dll
+ 0001:00008bde       _InterlockedExchange@8     10009bde f   kernel32:KERNEL32.dll
+ 0001:00008be4       _Sleep@4                   10009be4 f   kernel32:KERNEL32.dll
+ 0001:00008bea       _InterlockedCompareExchange@12 10009bea f   kernel32:KERNEL32.dll
+ 0001:00008bf0       _TerminateProcess@8        10009bf0 f   kernel32:KERNEL32.dll
+ 0001:00008bf6       _GetCurrentProcess@0       10009bf6 f   kernel32:KERNEL32.dll
+ 0001:00008bfc       _UnhandledExceptionFilter@4 10009bfc f   kernel32:KERNEL32.dll
+ 0001:00008c02       _SetUnhandledExceptionFilter@4 10009c02 f   kernel32:KERNEL32.dll
+ 0001:00008c08       _IsDebuggerPresent@0       10009c08 f   kernel32:KERNEL32.dll
+ 0001:00008c0e       _QueryPerformanceCounter@4 10009c0e f   kernel32:KERNEL32.dll
+ 0001:00008c14       _GetTickCount@0            10009c14 f   kernel32:KERNEL32.dll
+ 0001:00008c1a       _GetCurrentThreadId@0      10009c1a f   kernel32:KERNEL32.dll
+ 0001:00008c20       _GetCurrentProcessId@0     10009c20 f   kernel32:KERNEL32.dll
+ 0001:00008c26       _GetSystemTimeAsFileTime@4 10009c26 f   kernel32:KERNEL32.dll
+ 0001:00008c2c       __strdup                   10009c2c f   MSVCRTD:MSVCR90D.dll
+ 0001:00008c32       _isatty                    10009c32 f   MSVCRTD:MSVCR90D.dll
+ 0001:00008c32       __isatty                   10009c32 f   MSVCRTD:MSVCR90D.dll
+ 0001:00008c38       __fileno                   10009c38 f   MSVCRTD:MSVCR90D.dll
+ 0002:00000000       ___xc_a                    1000b000     MSVCRTD:cinitexe.obj
+ 0002:00000104       ___xc_z                    1000b104     MSVCRTD:cinitexe.obj
+ 0002:00000208       ___xi_a                    1000b208     MSVCRTD:cinitexe.obj
+ 0002:00000514       ___xi_z                    1000b514     MSVCRTD:cinitexe.obj
+ 0002:00000920       __real@0000000000000000    1000b920     libconfig.obj
+ 0002:000017d4       __pRawDllMain              1000c7d4     MSVCRTD:crtdll.obj
+ 0002:000017d4       __pDefaultRawDllMain       1000c7d4     MSVCRTD:crtdll.obj
+ 0002:000017d8       ??_C@_0DA@FJPPCPEH@f?3?2dd?2vctools?2crt_bld?2self_x86?2c@ 1000c7d8     MSVCRTD:crtdll.obj
+ 0002:00001810       ?ProcessDetach@NativeDll@<CrtImplementationDetails>@@0IB 1000c810     MSVCRTD:tncleanup.obj
+ 0002:00001814       ?ProcessAttach@NativeDll@<CrtImplementationDetails>@@0IB 1000c814     MSVCRTD:tncleanup.obj
+ 0002:00001818       ?ThreadAttach@NativeDll@<CrtImplementationDetails>@@0IB 1000c818     MSVCRTD:tncleanup.obj
+ 0002:0000181c       ?ThreadDetach@NativeDll@<CrtImplementationDetails>@@0IB 1000c81c     MSVCRTD:tncleanup.obj
+ 0002:00001820       ?ProcessVerifier@NativeDll@<CrtImplementationDetails>@@0IB 1000c820     MSVCRTD:tncleanup.obj
+ 0002:00001828       __load_config_used         1000c828     MSVCRTD:loadcfg.obj
+ 0002:00001b10       ___safe_se_handler_table   1000cb10     <linker-defined>
+ 0002:00001c14       ___rtc_iaa                 1000cc14     MSVCRTD:_initsect_.obj
+ 0002:00001d18       ___rtc_izz                 1000cd18     MSVCRTD:_initsect_.obj
+ 0002:00001e1c       ___rtc_taa                 1000ce1c     MSVCRTD:_initsect_.obj
+ 0002:00001f20       ___rtc_tzz                 1000cf20     MSVCRTD:_initsect_.obj
+ 0003:000005b4       ___security_cookie         1000e5b4     MSVCRTD:gs_cookie.obj
+ 0003:000005b8       ___security_cookie_complement 1000e5b8     MSVCRTD:gs_cookie.obj
+ 0003:000005c0       ___native_dllmain_reason   1000e5c0     MSVCRTD:natstart.obj
+ 0003:000005c4       ___native_vcclrit_reason   1000e5c4     MSVCRTD:natstart.obj
+ 0003:000009fc       ?__type_info_root_node@@3U__type_info_node@@A 1000e9fc     MSVCRTD:tncleanup.obj
+ 0003:00000a04       __adjust_fdiv              1000ea04     <common>
+ 0003:00000a10       ___native_startup_state    1000ea10     <common>
+ 0003:00000a20       ___native_startup_lock     1000ea20     <common>
+ 0003:00000a24       ___onexitend               1000ea24     <common>
+ 0003:00000a34       ___onexitbegin             1000ea34     <common>
+ 0003:00000a38       ___sse2_available          1000ea38     <common>
+ 0003:00000a44       ___dyn_tls_init_callback   1000ea44     <common>
+ 0004:00000000       __IMPORT_DESCRIPTOR_MSVCR90D 1000f000     MSVCRTD:MSVCR90D.dll
+ 0004:00000014       __IMPORT_DESCRIPTOR_KERNEL32 1000f014     kernel32:KERNEL32.dll
+ 0004:00000028       __NULL_IMPORT_DESCRIPTOR   1000f028     MSVCRTD:MSVCR90D.dll
+ 0004:000001dc       __imp__GetCurrentProcessId@0 1000f1dc     kernel32:KERNEL32.dll
+ 0004:000001e0       __imp__GetCurrentThreadId@0 1000f1e0     kernel32:KERNEL32.dll
+ 0004:000001e4       __imp__GetTickCount@0      1000f1e4     kernel32:KERNEL32.dll
+ 0004:000001e8       __imp__QueryPerformanceCounter@4 1000f1e8     kernel32:KERNEL32.dll
+ 0004:000001ec       __imp__IsDebuggerPresent@0 1000f1ec     kernel32:KERNEL32.dll
+ 0004:000001f0       __imp__SetUnhandledExceptionFilter@4 1000f1f0     kernel32:KERNEL32.dll
+ 0004:000001f4       __imp__UnhandledExceptionFilter@4 1000f1f4     kernel32:KERNEL32.dll
+ 0004:000001f8       __imp__GetCurrentProcess@0 1000f1f8     kernel32:KERNEL32.dll
+ 0004:000001fc       __imp__TerminateProcess@8  1000f1fc     kernel32:KERNEL32.dll
+ 0004:00000200       __imp__InterlockedCompareExchange@12 1000f200     kernel32:KERNEL32.dll
+ 0004:00000204       __imp__Sleep@4             1000f204     kernel32:KERNEL32.dll
+ 0004:00000208       __imp__InterlockedExchange@8 1000f208     kernel32:KERNEL32.dll
+ 0004:0000020c       __imp__GetSystemTimeAsFileTime@4 1000f20c     kernel32:KERNEL32.dll
+ 0004:00000210       \177KERNEL32_NULL_THUNK_DATA 1000f210     kernel32:KERNEL32.dll
+ 0004:00000244       __imp__calloc              1000f244     MSVCRTD:MSVCR90D.dll
+ 0004:00000248       __imp__atoi                1000f248     MSVCRTD:MSVCR90D.dll
+ 0004:0000024c       __imp__realloc             1000f24c     MSVCRTD:MSVCR90D.dll
+ 0004:00000250       __imp__isdigit             1000f250     MSVCRTD:MSVCR90D.dll
+ 0004:00000254       __imp__isalpha             1000f254     MSVCRTD:MSVCR90D.dll
+ 0004:00000258       __imp__memmove             1000f258     MSVCRTD:MSVCR90D.dll
+ 0004:0000025c       __imp__strcmp              1000f25c     MSVCRTD:MSVCR90D.dll
+ 0004:00000260       __imp__fwrite              1000f260     MSVCRTD:MSVCR90D.dll
+ 0004:00000264       __imp__strtoul             1000f264     MSVCRTD:MSVCR90D.dll
+ 0004:00000268       __imp___atoi64             1000f268     MSVCRTD:MSVCR90D.dll
+ 0004:0000026c       __imp__atof                1000f26c     MSVCRTD:MSVCR90D.dll
+ 0004:00000270       __imp__strtol              1000f270     MSVCRTD:MSVCR90D.dll
+ 0004:00000274       __imp____iob_func          1000f274     MSVCRTD:MSVCR90D.dll
+ 0004:00000278       __imp___strtoui64          1000f278     MSVCRTD:MSVCR90D.dll
+ 0004:0000027c       __imp__clearerr            1000f27c     MSVCRTD:MSVCR90D.dll
+ 0004:00000280       __imp__fread               1000f280     MSVCRTD:MSVCR90D.dll
+ 0004:00000284       __imp___errno              1000f284     MSVCRTD:MSVCR90D.dll
+ 0004:00000288       __imp__ferror              1000f288     MSVCRTD:MSVCR90D.dll
+ 0004:0000028c       __imp__getc                1000f28c     MSVCRTD:MSVCR90D.dll
+ 0004:00000290       __imp__fopen               1000f290     MSVCRTD:MSVCR90D.dll
+ 0004:00000294       __imp__strcpy              1000f294     MSVCRTD:MSVCR90D.dll
+ 0004:00000298       __imp___encode_pointer     1000f298     MSVCRTD:MSVCR90D.dll
+ 0004:0000029c       __imp___malloc_dbg         1000f29c     MSVCRTD:MSVCR90D.dll
+ 0004:000002a0       __imp___free_dbg           1000f2a0     MSVCRTD:MSVCR90D.dll
+ 0004:000002a4       __imp___encoded_null       1000f2a4     MSVCRTD:MSVCR90D.dll
+ 0004:000002a8       __imp___decode_pointer     1000f2a8     MSVCRTD:MSVCR90D.dll
+ 0004:000002ac       __imp___CrtSetCheckCount   1000f2ac     MSVCRTD:MSVCR90D.dll
+ 0004:000002b0       __imp___initterm           1000f2b0     MSVCRTD:MSVCR90D.dll
+ 0004:000002b4       __imp___initterm_e         1000f2b4     MSVCRTD:MSVCR90D.dll
+ 0004:000002b8       __imp___amsg_exit          1000f2b8     MSVCRTD:MSVCR90D.dll
+ 0004:000002bc       __imp___adjust_fdiv        1000f2bc     MSVCRTD:MSVCR90D.dll
+ 0004:000002c0       __imp____CppXcptFilter     1000f2c0     MSVCRTD:MSVCR90D.dll
+ 0004:000002c4       __imp___crt_debugger_hook  1000f2c4     MSVCRTD:MSVCR90D.dll
+ 0004:000002c8       __imp____clean_type_info_names_internal 1000f2c8     MSVCRTD:MSVCR90D.dll
+ 0004:000002cc       __imp___unlock             1000f2cc     MSVCRTD:MSVCR90D.dll
+ 0004:000002d0       __imp____dllonexit         1000f2d0     MSVCRTD:MSVCR90D.dll
+ 0004:000002d4       __imp___lock               1000f2d4     MSVCRTD:MSVCR90D.dll
+ 0004:000002d8       __imp___onexit             1000f2d8     MSVCRTD:MSVCR90D.dll
+ 0004:000002dc       __imp___except_handler4_common 1000f2dc     MSVCRTD:MSVCR90D.dll
+ 0004:000002e0       __imp__fclose              1000f2e0     MSVCRTD:MSVCR90D.dll
+ 0004:000002e4       __imp___snprintf           1000f2e4     MSVCRTD:MSVCR90D.dll
+ 0004:000002e8       __imp__strchr              1000f2e8     MSVCRTD:MSVCR90D.dll
+ 0004:000002ec       __imp__strcat              1000f2ec     MSVCRTD:MSVCR90D.dll
+ 0004:000002f0       __imp__strlen              1000f2f0     MSVCRTD:MSVCR90D.dll
+ 0004:000002f4       __imp__fputs               1000f2f4     MSVCRTD:MSVCR90D.dll
+ 0004:000002f8       __imp__fprintf             1000f2f8     MSVCRTD:MSVCR90D.dll
+ 0004:000002fc       __imp__fputc               1000f2fc     MSVCRTD:MSVCR90D.dll
+ 0004:00000300       __imp___configthreadlocale 1000f300     MSVCRTD:MSVCR90D.dll
+ 0004:00000304       __imp__setlocale           1000f304     MSVCRTD:MSVCR90D.dll
+ 0004:00000308       __imp__memset              1000f308     MSVCRTD:MSVCR90D.dll
+ 0004:0000030c       __imp__malloc              1000f30c     MSVCRTD:MSVCR90D.dll
+ 0004:00000310       __imp__exit                1000f310     MSVCRTD:MSVCR90D.dll
+ 0004:00000314       __imp__free                1000f314     MSVCRTD:MSVCR90D.dll
+ 0004:00000318       __imp___strdup             1000f318     MSVCRTD:MSVCR90D.dll
+ 0004:00000318       __imp__strdup              1000f318     MSVCRTD:MSVCR90D.dll
+ 0004:0000031c       __imp___isatty             1000f31c     MSVCRTD:MSVCR90D.dll
+ 0004:00000320       __imp___fileno             1000f320     MSVCRTD:MSVCR90D.dll
+ 0004:00000320       __imp__fileno              1000f320     MSVCRTD:MSVCR90D.dll
+ 0004:00000324       \177MSVCR90D_NULL_THUNK_DATA 1000f324     MSVCRTD:MSVCR90D.dll
+
+ entry point at        0001:00008260
+
+
+ Exports
+
+  ordinal    name
+
+        1    _config_destroy
+               exported name: config_destroy
+        2    _config_get_auto_convert
+               exported name: config_get_auto_convert
+        3    _config_init
+               exported name: config_init
+        4    _config_lookup
+               exported name: config_lookup
+        5    _config_lookup_bool
+               exported name: config_lookup_bool
+        6    _config_lookup_float
+               exported name: config_lookup_float
+        7    _config_lookup_from
+               exported name: config_lookup_from
+        8    _config_lookup_int
+               exported name: config_lookup_int
+        9    _config_lookup_int64
+               exported name: config_lookup_int64
+       10    _config_lookup_string
+               exported name: config_lookup_string
+       11    _config_read
+               exported name: config_read
+       12    _config_read_file
+               exported name: config_read_file
+       13    _config_read_string
+               exported name: config_read_string
+       14    _config_set_auto_convert
+               exported name: config_set_auto_convert
+       15    _config_set_destructor
+               exported name: config_set_destructor
+       16    _config_setting_add
+               exported name: config_setting_add
+       17    _config_setting_get_bool
+               exported name: config_setting_get_bool
+       18    _config_setting_get_bool_elem
+               exported name: config_setting_get_bool_elem
+       19    _config_setting_get_elem
+               exported name: config_setting_get_elem
+       20    _config_setting_get_float
+               exported name: config_setting_get_float
+       21    _config_setting_get_float_elem
+               exported name: config_setting_get_float_elem
+       22    _config_setting_get_format
+               exported name: config_setting_get_format
+       23    _config_setting_get_int
+               exported name: config_setting_get_int
+       24    _config_setting_get_int64
+               exported name: config_setting_get_int64
+       25    _config_setting_get_int64_elem
+               exported name: config_setting_get_int64_elem
+       26    _config_setting_get_int_elem
+               exported name: config_setting_get_int_elem
+       27    _config_setting_get_member
+               exported name: config_setting_get_member
+       28    _config_setting_get_string
+               exported name: config_setting_get_string
+       29    _config_setting_get_string_elem
+               exported name: config_setting_get_string_elem
+       30    _config_setting_index
+               exported name: config_setting_index
+       31    _config_setting_length
+               exported name: config_setting_length
+       32    _config_setting_lookup_bool
+               exported name: config_setting_lookup_bool
+       33    _config_setting_lookup_float
+               exported name: config_setting_lookup_float
+       34    _config_setting_lookup_int
+               exported name: config_setting_lookup_int
+       35    _config_setting_lookup_int64
+               exported name: config_setting_lookup_int64
+       36    _config_setting_lookup_string
+               exported name: config_setting_lookup_string
+       37    _config_setting_remove
+               exported name: config_setting_remove
+       38    _config_setting_remove_elem
+               exported name: config_setting_remove_elem
+       39    _config_setting_set_bool
+               exported name: config_setting_set_bool
+       40    _config_setting_set_bool_elem
+               exported name: config_setting_set_bool_elem
+       41    _config_setting_set_float
+               exported name: config_setting_set_float
+       42    _config_setting_set_float_elem
+               exported name: config_setting_set_float_elem
+       43    _config_setting_set_format
+               exported name: config_setting_set_format
+       44    _config_setting_set_hook
+               exported name: config_setting_set_hook
+       45    _config_setting_set_int
+               exported name: config_setting_set_int
+       46    _config_setting_set_int64
+               exported name: config_setting_set_int64
+       47    _config_setting_set_int64_elem
+               exported name: config_setting_set_int64_elem
+       48    _config_setting_set_int_elem
+               exported name: config_setting_set_int_elem
+       49    _config_setting_set_string
+               exported name: config_setting_set_string
+       50    _config_setting_set_string_elem
+               exported name: config_setting_set_string_elem
+       51    _config_write
+               exported name: config_write
+       52    _config_write_file
+               exported name: config_write_file
