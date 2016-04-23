@@ -23,7 +23,7 @@ plot(pts(inl,1), pts(inl,2), 'go')
 epiLines = epipolarLine(F', pts(inl,3:4));
 points = lineToBorderPoints(epiLines, size(I1));
 line(points(:, [1,3])', points(:, [2,4])');
-axis equal
+axis equal ij
 
 subplot(1,2,2)
 hold on
@@ -32,4 +32,4 @@ plot(pts(inl,3), pts(inl,4), 'go')
 epiLines = epipolarLine(F, pts(inl,1:2));
 points = lineToBorderPoints(epiLines, size(I2));
 line(points(:, [1,3])', points(:, [2,4])');
-axis equal
+axis equal ij
