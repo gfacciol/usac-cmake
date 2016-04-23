@@ -407,7 +407,7 @@ bool USAC<ProblemType>::solve()
 						// model rejected
 						usac_results_.total_points_verified_ += num_points_tested;
 						double delta_new = (double)inlier_count/num_points_tested;
-						if (delta_new > 0 && abs(sprt_delta_ - delta_new)/sprt_delta_ > 0.1)
+						if (delta_new > 0 && std::abs(sprt_delta_ - delta_new)/sprt_delta_ > 0.1)
 						{
 							// update parameters
 							wald_test_history_ = addTestHistorySPRT(sprt_epsilon_, sprt_delta_, 

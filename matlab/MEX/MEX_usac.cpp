@@ -82,14 +82,16 @@ int readPROSACDataFromPointer(double *DATA, int ROWS, std::vector<unsigned int> 
 
 void help() {
       mexErrMsgTxt("USAC Matlab wrapper\n\n"
-      "[F,inliers] = MEX_usac(ptype, cfgfile, [matches], [sorting])\n"
+      "[F,inliers] = MEX_usac(ptype, cfgfile, [matches], [sorting], [inlier_thres], [max_hypoth])\n"
       "   \n"
-      "   ptype     0:fundamental 1:homography\n"
-      "   cfgfile   path to the config file\n"
-      "   matches   input 2D matches (4 columns). Overrides the file specified in cfgfile\n"
-      "   sorting   PROSAC match sorting, a column vector with the indeces of the matches\n"
-      "             ordered by decreasing quality. Only used if PROSAC option is activated\n"
-      "             in cfgfile. Overrides the file specified in cfgfile\n"
+      "   ptype        0:fundamental 1:homography\n"
+      "   cfgfile      path to the config file\n"
+      "   matches      input 2D matches (4 columns). Overrides the file specified in cfgfile\n"
+      "   sorting      PROSAC match sorting, a column vector with the indeces of the matches\n"
+      "                ordered by decreasing quality. Use [] to deactivate PROSAC.\n"
+      "                Overrides file specified in cfgfile\n"
+      "   inlier_thres inlier_threshold parameter. Overrides value specified in cfgfile\n"
+      "   max_hypoth   max_hypotheses parameter. Overrides value specified in cfgfile\n"
       "   \n"
       "   F         3x3 result matrix\n"
       "   inliers   column vector with inliers mask\n");
@@ -100,15 +102,18 @@ void help() {
 /*                                    Matlab Main Function                    */
 /*----------------------------------------------------------------------------*/
 /** USAC Matlab wrapper 
- *  [F,inliers] = usac(ptype, cfgfile, [points(optional)], [prosac sort])
- *
- * ptype     0:fundamental 1:homography 2:essential
- * cfgfile   path to the config file
- * points    override config file points 
- * prosac sort override the sort file specified in the config
- *
- * F         a 3x3 matrix
- * inliers   a column vector 
+ * [F,inliers] = MEX_usac(ptype, cfgfile, [matches], [sorting], [inlier_thres], [max_hypoth])
+ *      ptype        0:fundamental 1:homography 2:essential NOT IMPLEMENTED
+ *      cfgfile      path to the config file
+ *      matches      input 2D matches (4 columns). Overrides the file specified in cfgfile
+ *      sorting      PROSAC match sorting, a column vector with the indeces of the matches
+ *                   ordered by decreasing quality. Use [] to deactivate PROSAC.
+ *                   Overrides file specified in cfgfile
+ *      inlier_thres inlier_threshold parameter. Overrides value specified in cfgfile
+ *      max_hypoth   max_hypotheses parameter. Overrides value specified in cfgfile
+ *      
+ *      F         3x3 result matrix
+ *      inliers   column vector with inliers mask
  * */
 
 
@@ -122,11 +127,11 @@ void mexFunction( int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
   {
     help(); mexErrMsgIdAndTxt("MyToolbox:arrayProduct:nrhs","At least two inputs are required.");
   }
-  if(nrhs>4)
+  if(nrhs>6)
   {
-    help(); mexErrMsgIdAndTxt("MyToolbox:arrayProduct:nrhs","A maximum of two inputs are required.");
+    help(); mexErrMsgIdAndTxt("MyToolbox:arrayProduct:nrhs","A maximum of six inputs are required.");
   }
-  if(nrhs==2 || nrhs==3 || nrhs==4)
+  if(nrhs==2 || nrhs==3 || nrhs==4 || nrhs==5 || nrhs==6)
   {
 
     if (!(mxIsDouble(prhs[0])))
@@ -143,7 +148,15 @@ void mexFunction( int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
     }
     if (nrhs==4 && (!mxIsDouble(prhs[3])))
     {
-      help(); mexErrMsgTxt("The third input must be a double matrix.");
+      help(); mexErrMsgTxt("The forth input must be a double matrix.");
+    }
+    if (nrhs==5 && (!mxIsDouble(prhs[4])))
+    {
+      help(); mexErrMsgTxt("The fifth input must be a double.");
+    }
+    if (nrhs==6 && (!mxIsDouble(prhs[5])))
+    {
+      help(); mexErrMsgTxt("The sixth input must be a double.");
     }
 
 
@@ -166,6 +179,10 @@ void mexFunction( int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
     int COLS=-1, ROWS=-1;
     int estimation_problem = mxGetPr(prhs[0])[0];
     char *cfgfile = mxArrayToString(prhs[1]);
+    double inlier_threshold=-1;
+    int max_hypotheses=-1;
+    int activate_prosac = 0;   // -1: deactivate (explicitly []);   0: see cfgfile;   1: activate (explcitly PROSACDATA);
+
 
 	 std::string cfg_file_path ( (const char*) cfgfile );
 
@@ -181,16 +198,29 @@ void mexFunction( int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
       }
     }
 
-    if (nrhs==4)
+    if (nrhs>=4)
     {
       PROSACDATA = mxGetPr(prhs[3]);
+      activate_prosac = 1;
 
       if (mxGetN(prhs[3]) != 1 || mxGetM(prhs[3]) != ROWS)
       {
-        help(); mexErrMsgTxt("The sort matrix must have 1 column, and as many rows as matches");
+         PROSACDATA = NULL;
+         activate_prosac = -1;
+         mexPrintf("Deactivating PROSAC (sorting matrix must have 1 column, and as many rows as matches)\n");
       }
     }
 
+    if (nrhs>=5)
+    {
+      inlier_threshold = mxGetPr(prhs[4])[0];
+         mexPrintf("Changing inlier_threshold = %f\n", inlier_threshold);
+    }
+    if (nrhs>=6)
+    {
+      max_hypotheses = mxGetPr(prhs[5])[0];
+         mexPrintf("Changing max_hypotheses = %d\n", max_hypotheses);
+    }
 
 
 
@@ -207,8 +237,21 @@ void mexFunction( int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 		if ( !cfg.initParamsFromConfigFile(cfg_file_path) )
 		{
          mexErrMsgTxt("Error during initialization");
-			//return(EXIT_FAILURE);
 		}
+      // Override PROSAC activate or deactivate
+		if (activate_prosac > 0) {
+         cfg.common.randomSamplingMethod = USACConfig::SAMP_PROSAC;
+      } else if (activate_prosac < 0) {
+         cfg.common.randomSamplingMethod = USACConfig::SAMP_UNIFORM;
+      }
+      // Override inlier_threshold and max_hypotheses
+      if (inlier_threshold >= 0) {
+         cfg.common.inlierThreshold = inlier_threshold;
+      }
+      if (max_hypotheses >= 0) {
+         cfg.common.maxHypotheses = max_hypotheses;
+      }
+
 		FundMatrixEstimator* fund = new FundMatrixEstimator;
 		fund->initParamsUSAC(cfg);
 
@@ -220,7 +263,6 @@ void mexFunction( int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 		   if ( !readCorrsFromFile(cfg.fund.inputFilePath, point_data, cfg.common.numDataPoints) )
 		   {
             mexErrMsgTxt("Error reading input data points");
-		   	//return(EXIT_FAILURE);
 		   }
       }
 
@@ -236,7 +278,6 @@ void mexFunction( int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 			   if ( !readPROSACDataFromFile(cfg.prosac.sortedPointsFile, cfg.common.numDataPoints, prosac_data) )
 			   {
                mexErrMsgTxt("Error reading prosac data");
-			      //return(EXIT_FAILURE);
 			   }
 			   cfg.prosac.sortedPointIndices = &prosac_data[0];
          }
@@ -245,13 +286,11 @@ void mexFunction( int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 		}
 
 		// set up the fundamental matrix estimation problem
-
 		fund->initDataUSAC(cfg);
 		fund->initProblem(cfg, &point_data[0]);
 		if (!fund->solve())
 		{
          mexErrMsgTxt("Error running the algorithm");
-			//return(EXIT_FAILURE);
 		}
 
 		// write out results
@@ -268,25 +307,6 @@ void mexFunction( int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 		for (unsigned int i = 0; i < cfg.common.numDataPoints; ++i)
 			inliers[i] = fund->usac_results_.inlier_flags_[i];
 
-//		// write out results
-//		size_t pos = (cfg.fund.inputFilePath).find_last_of("/\\");
-//		std::string working_dir = (cfg.fund.inputFilePath).substr(0, pos + 1);
-//		std::ofstream outmodel((working_dir + "F.txt").c_str());
-//		for (unsigned int i = 0; i < 3; ++i)
-//		{
-//			for (unsigned int j = 0; j < 3; ++j)
-//			{
-//				outmodel << fund->final_model_params_[3*i+j] << " ";
-//			}
-//		}
-//		outmodel.close();
-//		std::ofstream outinliers((working_dir + "inliers.txt").c_str());
-//		for (unsigned int i = 0; i < cfg.common.numDataPoints; ++i)
-//		{
-//			outinliers << fund->usac_results_.inlier_flags_[i] << std::endl;
-//		}
-//		outinliers.close();
-
 		// clean up
 		point_data.clear();
 		prosac_data.clear();
@@ -300,8 +320,20 @@ void mexFunction( int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 		if ( !cfg.initParamsFromConfigFile(cfg_file_path) )
 		{
          mexErrMsgTxt("Error during initialization");
-			//return(EXIT_FAILURE);
 		}
+      // Override PROSAC activate or deactivate
+		if (activate_prosac > 0) {
+         cfg.common.randomSamplingMethod = USACConfig::SAMP_PROSAC;
+      } else if (activate_prosac < 0) {
+         cfg.common.randomSamplingMethod = USACConfig::SAMP_UNIFORM;
+      }
+      // Override inlier_threshold and max_hypotheses
+      if (inlier_threshold >= 0) {
+         cfg.common.inlierThreshold = inlier_threshold;
+      }
+      if (max_hypotheses >= 0) {
+         cfg.common.maxHypotheses = max_hypotheses;
+      }
 
 		HomogEstimator* homog = new HomogEstimator;
 		homog->initParamsUSAC(cfg);
@@ -314,7 +346,6 @@ void mexFunction( int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 		   if ( !readCorrsFromFile(cfg.homog.inputFilePath, point_data, cfg.common.numDataPoints) )
 		   {
             mexErrMsgTxt("Error reading data points");
-		   	//return(EXIT_FAILURE);
 		   }
       }
 
@@ -330,7 +361,6 @@ void mexFunction( int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 			   if ( !readPROSACDataFromFile(cfg.prosac.sortedPointsFile, cfg.common.numDataPoints, prosac_data) )
 			   {
                mexErrMsgTxt("Error reading prosac data");
-			   	//return(EXIT_FAILURE);
 			   }
 			   cfg.prosac.sortedPointIndices = &prosac_data[0];
          }
@@ -344,7 +374,6 @@ void mexFunction( int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 		if (!homog->solve())
 		{
          mexErrMsgTxt("Error running the algorithm");
-			//return(EXIT_FAILURE);
 		}
 
 		// write out results
@@ -361,25 +390,6 @@ void mexFunction( int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 		for (unsigned int i = 0; i < cfg.common.numDataPoints; ++i)
 			inliers[i] = homog->usac_results_.inlier_flags_[i];
 
-//		// write out results
-//		size_t pos = (cfg.homog.inputFilePath).find_last_of("/\\");
-//		std::string working_dir = (cfg.homog.inputFilePath).substr(0, pos + 1);
-//		std::ofstream outmodel((working_dir + "H.txt").c_str());
-//		for (unsigned int i = 0; i < 3; ++i)
-//		{
-//			for (unsigned int j = 0; j < 3; ++j)
-//			{
-//				outmodel << homog->final_model_params_[3*i+j] << " ";
-//			}
-//		}
-//		outmodel.close();
-//		std::ofstream outinliers((working_dir + "inliers.txt").c_str());
-//		for (unsigned int i = 0; i < cfg.common.numDataPoints; ++i)
-//		{
-//			outinliers << homog->usac_results_.inlier_flags_[i] << std::endl;
-//		}
-//		outinliers.close();
-
 		// clean up
 		point_data.clear();
 		prosac_data.clear();
@@ -387,7 +397,6 @@ void mexFunction( int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 		delete homog;
 	} else {
       mexErrMsgTxt("Estimation problem currently not implemented");
-		//std::cout << "Estimation problem currently not implemented" << std::endl;
 	}
 
 
@@ -395,171 +404,3 @@ void mexFunction( int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
    }
 
 }
-
-
-
-
-
-
-
-
-// ---------------------------------------------------------------------------------------------------------------
-//int mainxx(int argc, char **argv)
-//{
-//	// check command line args
-//	if (argc < 3)
-//	{
-//		std::cerr << "Usage: RunSingleTest <estimation problem> <config file>" << std::endl;
-//		std::cerr << "\t<estimation problem>: 0 (fundamental matrix), 1 (homography)" << std::endl;
-//		std::cerr << "\t<config file>: full path to configuration file" << std::endl;
-//		return(EXIT_FAILURE);
-//	}
-//	int estimation_problem = atoi(argv[1]);
-//	std::string cfg_file_path = argv[2];
-//
-//	// seed random number generator
-//	srand((unsigned int)time(NULL));
-//
-//	// initialize the appropriate robust estimation problem
-//	if (estimation_problem == 0)
-//	{
-//		// ------------------------------------------------------------------------
-//		// initialize the fundamental matrix estimation problem
-//		ConfigParamsFund cfg;
-//		if ( !cfg.initParamsFromConfigFile(cfg_file_path) )
-//		{
-//			std::cerr << "Error during initialization" << std::endl;
-//			return(EXIT_FAILURE);
-//		}
-//		FundMatrixEstimator* fund = new FundMatrixEstimator;
-//		fund->initParamsUSAC(cfg);
-//
-//		// read in input data points
-//		std::vector<double> point_data;
-//		if ( !readCorrsFromFile(cfg.fund.inputFilePath, point_data, cfg.common.numDataPoints) )
-//		{
-//			return(EXIT_FAILURE);
-//		}
-//
-//		// read in prosac data if required
-//		std::vector<unsigned int> prosac_data;
-//		if (cfg.common.randomSamplingMethod == USACConfig::SAMP_PROSAC)
-//		{
-//			prosac_data.resize(cfg.common.numDataPoints);
-//			if ( !readPROSACDataFromFile(cfg.prosac.sortedPointsFile, cfg.common.numDataPoints, prosac_data) )
-//			{
-//				return(EXIT_FAILURE);
-//			}
-//			cfg.prosac.sortedPointIndices = &prosac_data[0];
-//		} else {
-//			cfg.prosac.sortedPointIndices = NULL;
-//		}
-//
-//		// set up the fundamental matrix estimation problem
-//
-//		fund->initDataUSAC(cfg);
-//		fund->initProblem(cfg, &point_data[0]);
-//		if (!fund->solve())
-//		{
-//			return(EXIT_FAILURE);
-//		}
-//
-//		// write out results
-//		size_t pos = (cfg.fund.inputFilePath).find_last_of("/\\");
-//		std::string working_dir = (cfg.fund.inputFilePath).substr(0, pos + 1);
-//		std::ofstream outmodel((working_dir + "F.txt").c_str());
-//		for (unsigned int i = 0; i < 3; ++i)
-//		{
-//			for (unsigned int j = 0; j < 3; ++j)
-//			{
-//				outmodel << fund->final_model_params_[3*i+j] << " ";
-//			}
-//		}
-//		outmodel.close();
-//		std::ofstream outinliers((working_dir + "inliers.txt").c_str());
-//		for (unsigned int i = 0; i < cfg.common.numDataPoints; ++i)
-//		{
-//			outinliers << fund->usac_results_.inlier_flags_[i] << std::endl;
-//		}
-//		outinliers.close();
-//
-//		// clean up
-//		point_data.clear();
-//		prosac_data.clear();
-//		fund->cleanupProblem();
-//		delete fund;
-//
-//	} else if (estimation_problem == 1) {
-//		// ------------------------------------------------------------------------
-//		// initialize the homography estimation problem
-//		ConfigParamsHomog cfg;
-//		if ( !cfg.initParamsFromConfigFile(cfg_file_path) )
-//		{
-//			std::cerr << "Error during initialization" << std::endl;
-//			return(EXIT_FAILURE);
-//		}
-//
-//		HomogEstimator* homog = new HomogEstimator;
-//		homog->initParamsUSAC(cfg);
-//
-//		// read in input data points
-//		std::vector<double> point_data;
-//		if ( !readCorrsFromFile(cfg.homog.inputFilePath, point_data, cfg.common.numDataPoints) )
-//		{
-//			return(EXIT_FAILURE);
-//		}
-//
-//		// read in prosac data if required
-//		std::vector<unsigned int> prosac_data;
-//		if (cfg.common.randomSamplingMethod == USACConfig::SAMP_PROSAC)
-//		{
-//			prosac_data.resize(cfg.common.numDataPoints);
-//			if ( !readPROSACDataFromFile(cfg.prosac.sortedPointsFile, cfg.common.numDataPoints, prosac_data) )
-//			{
-//				return(EXIT_FAILURE);
-//			}
-//			cfg.prosac.sortedPointIndices = &prosac_data[0];
-//		} else {
-//			cfg.prosac.sortedPointIndices = NULL;
-//		}
-//
-//		// set up the homography estimation problem
-//		homog->initDataUSAC(cfg);
-//		homog->initProblem(cfg, &point_data[0]);
-//		if (!homog->solve())
-//		{
-//         mexErrMsgTxt("Error running the algorithm");
-//			//return(EXIT_FAILURE);
-//		}
-//
-//		// write out results
-//		size_t pos = (cfg.homog.inputFilePath).find_last_of("/\\");
-//		std::string working_dir = (cfg.homog.inputFilePath).substr(0, pos + 1);
-//		std::ofstream outmodel((working_dir + "H.txt").c_str());
-//		for (unsigned int i = 0; i < 3; ++i)
-//		{
-//			for (unsigned int j = 0; j < 3; ++j)
-//			{
-//				outmodel << homog->final_model_params_[3*i+j] << " ";
-//			}
-//		}
-//		outmodel.close();
-//		std::ofstream outinliers((working_dir + "inliers.txt").c_str());
-//		for (unsigned int i = 0; i < cfg.common.numDataPoints; ++i)
-//		{
-//			outinliers << homog->usac_results_.inlier_flags_[i] << std::endl;
-//		}
-//		outinliers.close();
-//
-//		// clean up
-//		point_data.clear();
-//		prosac_data.clear();
-//		homog->cleanupProblem();
-//		delete homog;
-//	} else {
-//		std::cout << "Estimation problem currently not implemented" << std::endl;
-//	}
-//
-//	return(EXIT_SUCCESS);
-//}
-//

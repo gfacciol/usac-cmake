@@ -340,7 +340,7 @@ namespace FTools
 
 		j = 0;
 		for (i = 1; i < 3; i ++)
-			if (abs(D[j]) > abs(D[i])) j = i;
+			if (fabs(D[j]) > fabs(D[i])) j = i;
 
 		switch (j)
 		{
