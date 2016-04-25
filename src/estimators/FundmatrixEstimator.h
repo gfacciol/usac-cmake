@@ -639,8 +639,8 @@ unsigned int FundMatrixEstimator::upgradeDegenerateModel()
 
 		}
 	}
-
-	std::cout << "Upgraded model has " << best_upgrade_inliers << " inliers" << std::endl;
+    if(usac_verbose_)
+        std::cout << "Upgraded model has " << best_upgrade_inliers << " inliers" << std::endl;
 	return best_upgrade_inliers;
 }
 

@@ -23,6 +23,7 @@ namespace USACConfig
 				  prevalidateSample 	 (false),
 				  prevalidateModel	     (false),
 				  testDegeneracy	 	 (false),
+                  verbose                (true),
 				  randomSamplingMethod   (SAMP_UNIFORM),
 				  verifMethod			 (VERIF_STANDARD),
 				  localOptMethod         (LO_NONE)
@@ -36,6 +37,7 @@ namespace USACConfig
 		bool					prevalidateSample;
 		bool					prevalidateModel;
 		bool					testDegeneracy;
+        bool                    verbose;
 		RandomSamplingMethod    randomSamplingMethod;
 		VerifMethod			    verifMethod;
 		LocalOptimizationMethod localOptMethod;

@@ -102,9 +102,10 @@ void help() {
 /*                                    Matlab Main Function                    */
 /*----------------------------------------------------------------------------*/
 /** USAC Matlab wrapper 
- * [F,inliers] = MEX_usac(ptype, cfgfile, [matches], [sorting], [inlier_thres], [max_hypoth])
+ * [F,inliers] = MEX_usac(ptype, cfgfile, [verbose], [matches], [sorting], [inlier_thres], [max_hypoth])
  *      ptype        0:fundamental 1:homography 2:essential NOT IMPLEMENTED
  *      cfgfile      path to the config file
+ *      verbose      0: silent mode. 1: verbose mode. Overrides the config in cfgfile
  *      matches      input 2D matches (4 columns). Overrides the file specified in cfgfile
  *      sorting      PROSAC match sorting, a column vector with the indeces of the matches
  *                   ordered by decreasing quality. Use [] to deactivate PROSAC.
@@ -127,11 +128,11 @@ void mexFunction( int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
   {
     help(); mexErrMsgIdAndTxt("MyToolbox:arrayProduct:nrhs","At least two inputs are required.");
   }
-  if(nrhs>6)
+  if(nrhs>7)
   {
-    help(); mexErrMsgIdAndTxt("MyToolbox:arrayProduct:nrhs","A maximum of six inputs are required.");
+    help(); mexErrMsgIdAndTxt("MyToolbox:arrayProduct:nrhs","A maximum of seven inputs are required.");
   }
-  if(nrhs==2 || nrhs==3 || nrhs==4 || nrhs==5 || nrhs==6)
+  if(nrhs==2 || nrhs==3 || nrhs==4 || nrhs==5 || nrhs==6 || nrhs==7)
   {
 
     if (!(mxIsDouble(prhs[0])))
@@ -144,19 +145,23 @@ void mexFunction( int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
     }
     if (nrhs==3 && (!mxIsDouble(prhs[2])))
     {
-      help(); mexErrMsgTxt("The third input must be a double matrix.");
+      help(); mexErrMsgTxt("The third input must be a double.");
     }
     if (nrhs==4 && (!mxIsDouble(prhs[3])))
     {
-      help(); mexErrMsgTxt("The forth input must be a double matrix.");
+      help(); mexErrMsgTxt("The fourth input must be a double matrix.");
     }
     if (nrhs==5 && (!mxIsDouble(prhs[4])))
     {
-      help(); mexErrMsgTxt("The fifth input must be a double.");
+      help(); mexErrMsgTxt("The fifth input must be a double matrix.");
     }
     if (nrhs==6 && (!mxIsDouble(prhs[5])))
     {
       help(); mexErrMsgTxt("The sixth input must be a double.");
+    }
+    if (nrhs==7 && (!mxIsDouble(prhs[6])))
+    {
+      help(); mexErrMsgTxt("The seventh input must be a double.");
     }
 
 
@@ -182,15 +187,27 @@ void mexFunction( int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
     double inlier_threshold=-1;
     int max_hypotheses=-1;
     int activate_prosac = 0;   // -1: deactivate (explicitly []);   0: see cfgfile;   1: activate (explcitly PROSACDATA);
-
+    int verbose = -1; //     -1: see cfgfile (explicitly []);   0: false; 1: true;
 
 	 std::string cfg_file_path ( (const char*) cfgfile );
 
-    if (nrhs>=3)
+    if (nrhs >= 3)
     {
-      DATA = mxGetPr(prhs[2]);
-      COLS = mxGetN(prhs[2]);
-      ROWS = mxGetM(prhs[2]);
+      if (!mxIsEmpty(prhs[2]) && mxIsLogical(prhs[2]))
+      {
+        bool bVerbose = mxGetLogicals(prhs[2])[0];
+        if (bVerbose)
+            verbose = 1;
+        else
+            verbose = 0;
+      }
+    }
+
+    if (nrhs>=4)
+    {
+      DATA = mxGetPr(prhs[3]);
+      COLS = mxGetN(prhs[3]);
+      ROWS = mxGetM(prhs[3]);
 
       if (COLS != 4)
       {
@@ -198,27 +215,31 @@ void mexFunction( int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
       }
     }
 
-    if (nrhs>=4)
+    if (nrhs>=5)
     {
-      PROSACDATA = mxGetPr(prhs[3]);
+      PROSACDATA = mxGetPr(prhs[4]);
       activate_prosac = 1;
 
-      if (mxGetN(prhs[3]) != 1 || mxGetM(prhs[3]) != ROWS)
+      if (mxGetN(prhs[4]) != 1 || mxGetM(prhs[4]) != ROWS)
       {
          PROSACDATA = NULL;
          activate_prosac = -1;
-         mexPrintf("Deactivating PROSAC (sorting matrix must have 1 column, and as many rows as matches)\n");
+         if (verbose == 1)
+            mexPrintf("Deactivating PROSAC (sorting matrix must have 1 column, and as many rows as matches)\n");
+         
       }
     }
 
-    if (nrhs>=5)
-    {
-      inlier_threshold = mxGetPr(prhs[4])[0];
-         mexPrintf("Changing inlier_threshold = %f\n", inlier_threshold);
-    }
     if (nrhs>=6)
     {
-      max_hypotheses = mxGetPr(prhs[5])[0];
+      inlier_threshold = mxGetPr(prhs[5])[0];
+      if (verbose == 1)
+         mexPrintf("Changing inlier_threshold = %f\n", inlier_threshold);
+    }
+    if (nrhs>=7)
+    {
+      max_hypotheses = mxGetPr(prhs[6])[0];
+      if (verbose == 1)
          mexPrintf("Changing max_hypotheses = %d\n", max_hypotheses);
     }
 
@@ -250,6 +271,9 @@ void mexFunction( int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
       }
       if (max_hypotheses >= 0) {
          cfg.common.maxHypotheses = max_hypotheses;
+      }
+      if (verbose >= 0) {
+         cfg.common.verbose = (verbose == 1);
       }
 
 		FundMatrixEstimator* fund = new FundMatrixEstimator;
@@ -333,6 +357,9 @@ void mexFunction( int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
       }
       if (max_hypotheses >= 0) {
          cfg.common.maxHypotheses = max_hypotheses;
+      }
+      if (verbose >= 0) {
+         cfg.common.verbose = (verbose == 1);
       }
 
 		HomogEstimator* homog = new HomogEstimator;

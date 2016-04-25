@@ -10,6 +10,7 @@ bool ConfigParams::initUSACParamsFromConfigFile(const ConfigFileReader& cfr)
 		std::string rand_sampling_method, verif_method, local_opt_method, est_problem;
 		if( !( cfr.getTopLevelParameterValue("common", "ransac_conf", common.confThreshold) &&
 			   cfr.getTopLevelParameterValue("common", "min_sample_size", common.minSampleSize) &&
+			   cfr.getTopLevelParameterValue("common", "verbose", common.verbose) &&
 			   cfr.getTopLevelParameterValue("common", "inlier_threshold", common.inlierThreshold) &&
 			   cfr.getTopLevelParameterValue("common", "max_hypotheses", common.maxHypotheses) &&
 			   cfr.getTopLevelParameterValue("common", "max_solutions_per_sample", common.maxSolutionsPerSample) &&
