@@ -1,3 +1,4 @@
+cmake_minimum_required(VERSION 3.6)
 set(MODULE_NAME USAC)
 project(${MODULE_NAME})
 

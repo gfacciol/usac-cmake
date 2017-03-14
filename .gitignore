@@ -1,2 +1,7 @@
 /build*
 /data
+.idea
+src/.idea
+cmake-build-debug/
+src/cmake-build-debug/
+

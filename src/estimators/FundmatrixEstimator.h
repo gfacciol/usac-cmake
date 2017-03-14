@@ -4,10 +4,10 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-#include "config/ConfigParamsFundmatrix.h"
-#include "utils/MathFunctions.h"
-#include "utils/FundmatrixFunctions.h"
-#include "utils/HomographyFunctions.h"
+#include "../config/ConfigParamsFundmatrix.h"
+#include "../utils/MathFunctions.h"
+#include "../utils/FundmatrixFunctions.h"
+#include "../utils/HomographyFunctions.h"
 #include "USAC.h"
 
 class FundMatrixEstimator: public USAC<FundMatrixEstimator>

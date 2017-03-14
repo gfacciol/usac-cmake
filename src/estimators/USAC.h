@@ -12,8 +12,8 @@
 #include <iostream>
 #include <limits>
 #include <vector>
-#include "config/ConfigParams.h"
-#include "utils/Timer.h"
+#include "../config/ConfigParams.h"
+#include "../utils/Timer.h"
 
 struct UsacResults {
 	void reset() {

@@ -4,10 +4,10 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-#include "config/ConfigParamsHomog.h"
-#include "utils/MathFunctions.h"
-#include "utils/FundmatrixFunctions.h"
-#include "utils/HomographyFunctions.h"
+#include "../config/ConfigParamsHomog.h"
+#include "../utils/MathFunctions.h"
+#include "../utils/FundmatrixFunctions.h"
+#include "../utils/HomographyFunctions.h"
 #include "USAC.h"
 
 class HomogEstimator: public USAC<HomogEstimator>
