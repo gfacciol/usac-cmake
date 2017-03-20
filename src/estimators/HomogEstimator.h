@@ -13,7 +13,7 @@
 class HomogEstimator: public USAC<HomogEstimator>
 {
 	public:
-		inline bool		 initProblem(const ConfigParamsHomog& cfg, double* pointData);
+		inline virtual bool		 initProblem(const ConfigParamsHomog& cfg, double* pointData);
 		// ------------------------------------------------------------------------
 		// storage for the final result
 		std::vector<double> final_model_params_;
@@ -25,6 +25,8 @@ class HomogEstimator: public USAC<HomogEstimator>
 			data_matrix_  = NULL;
 			models_.clear();
 			models_denorm_.clear();
+            intermediate_models.clear();
+            intermediate_models_scores.clear();
 		};
 		~HomogEstimator() 
 		{
@@ -40,6 +42,13 @@ class HomogEstimator: public USAC<HomogEstimator>
 				if (models_denorm_[i]) { delete[] models_denorm_[i]; }
 			}
 			models_denorm_.clear();
+            for (size_t i = 0; i < intermediate_models.size(); ++i)
+            {
+                if (intermediate_models[i]) { delete[] intermediate_models[i]; }
+            }
+            intermediate_models.clear();
+            intermediate_models_scores.clear();
+
 		};
 
 	public:
@@ -57,8 +66,10 @@ class HomogEstimator: public USAC<HomogEstimator>
 		inline void		 findWeights(unsigned int modelIndex, const std::vector<unsigned int>& inliers, 
 									 unsigned int numInliers, double* weights);
 		inline void		 storeModel(unsigned int modelIndex, unsigned int numInliers);
+		inline void 	 storeIntermediateModel(unsigned int modelIndex, unsigned int numInliers);
+        inline void      perform_aggregation() {};
 
-	private:
+    protected:
 		double*      input_points_denorm_;					// stores pointer to original input points
 
 		// ------------------------------------------------------------------------
@@ -68,6 +79,9 @@ class HomogEstimator: public USAC<HomogEstimator>
 		double  m_T1_[9], m_T2_[9], m_T2inv_[9];			// normalization matrices
 		std::vector<double*> models_;				    // stores vector of models
 		std::vector<double*> models_denorm_;			// stores vector of (denormalized) models
+	protected:
+        std::vector<double*> intermediate_models;
+        std::vector<unsigned int> intermediate_models_scores;
 };
 
 
@@ -103,6 +117,7 @@ bool HomogEstimator::initProblem(const ConfigParamsHomog& cfg, double* pointData
 
 	// allocate storage for models
 	final_model_params_.clear(); final_model_params_.resize(9);
+
 	models_.clear(); models_.resize(usac_max_solns_per_sample_);
 	models_denorm_.clear(); models_denorm_.resize(usac_max_solns_per_sample_);
 	for (unsigned int i = 0; i < usac_max_solns_per_sample_; ++i)
@@ -110,6 +125,9 @@ bool HomogEstimator::initProblem(const ConfigParamsHomog& cfg, double* pointData
 		models_[i] = new double[9];
 		models_denorm_[i] = new double[9];
 	}
+
+    intermediate_models_scores.clear();
+    intermediate_models.clear();
 
 	// precompute the data matrix
 	data_matrix_ = new double[18*usac_num_data_points_];	// 2 equations per correspondence
@@ -137,6 +155,13 @@ void HomogEstimator::cleanupProblem()
 		if (models_denorm_[i]) { delete[] models_denorm_[i]; }
 	}
 	models_denorm_.clear();
+	for (size_t i = 0; i < intermediate_models.size(); ++i)
+	{
+		if (intermediate_models[i]) { delete[] intermediate_models[i]; }
+	}
+	intermediate_models.clear();
+	intermediate_models_scores.clear();
+
 }
 
 
@@ -411,6 +436,17 @@ void HomogEstimator::storeModel(const unsigned int modelIndex, unsigned int numI
 	{
 		final_model_params_[i] = *(models_denorm_[modelIndex]+i);
 	}
+}
+
+void HomogEstimator::storeIntermediateModel(const unsigned int modelIndex, unsigned int numInliers)
+{
+    double *model = new double[9];
+	for (unsigned int i = 0; i < 9; ++i)
+	{
+		model[i] = *(models_denorm_[modelIndex]+i);
+	}
+	intermediate_models.push_back(model);
+	intermediate_models_scores.push_back(numInliers);
 }
 
 #endif

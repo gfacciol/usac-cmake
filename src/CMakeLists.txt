@@ -23,7 +23,7 @@ link_directories(
 add_library(${MODULE_NAME} STATIC
 	${sources}
 	${headers}
-)
+		estimators/AggHomogEstimator.h estimators/OriginalAggHomogEstimator.h)
 
 target_link_libraries(${MODULE_NAME}
 	${CONFIG++_LIBRARY}

@@ -60,6 +60,8 @@ class FundMatrixEstimator: public USAC<FundMatrixEstimator>
 		inline void		 findWeights(unsigned int modelIndex, const std::vector<unsigned int>& inliers, 
 								     unsigned int numInliers, double* weights);
 		inline void		 storeModel(unsigned int modelIndex, unsigned int numInliers);
+		inline void 	 storeIntermediateModel(unsigned int modelIndex, unsigned int numInliers) {}; // TODO
+        inline void      perform_aggregation() {}; // TODO
 
 	private:
 		double*		 input_points_denorm_;					    // stores pointer to original input points

@@ -36,5 +36,7 @@ namespace MathTools
 	void mmul(double *c,double *a,double *b,int n);
 	void crossprod(double *out, const double *a, const double *b, unsigned int st);
 	void trnm(double *a,int n);
+	double l2_dist(double *x1, double *x2, int n);
+	double norm(double *x1, int n);
 }
 #endif

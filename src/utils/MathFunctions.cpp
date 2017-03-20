@@ -501,5 +501,21 @@ namespace MathTools
 		 }
 	   }
 	}
+	double l2_dist(double *x1, double *x2, int n)
+	{
+		double dist = 0;
+		for (int i=0;i<n;i++)
+			dist += (x1[i] - x2[i]) * (x1[i] - x2[i]);
+		return sqrt(dist);
+	}
+
+	double norm(double *x1, int n)
+	{
+		double acum = 0;
+		for (int i=0;i<n;i++)
+			acum += x1[i] * x1[i];
+		return sqrt(acum);
+	}
+
 
 }

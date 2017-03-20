@@ -8,6 +8,7 @@
 #include <cstdlib>
 #include <time.h>
 #include <vector>
+#include <estimators/OriginalAggHomogEstimator.h>
 
 #include "config/ConfigParams.h"
 #include "estimators/FundmatrixEstimator.h"
@@ -149,7 +150,8 @@ int main(int argc, char **argv)
 			return(EXIT_FAILURE);
 		}
 
-		HomogEstimator* homog = new HomogEstimator;
+//		HomogEstimator* homog = new HomogEstimator();
+		OriginalAggHomogEstimator* homog = new OriginalAggHomogEstimator(800, 640, 800, 640, 9, 3);
 		homog->initParamsUSAC(cfg);
 
 		// read in input data points
@@ -189,10 +191,31 @@ int main(int argc, char **argv)
 		{
 			for (unsigned int j = 0; j < 3; ++j)
 			{
-				outmodel << homog->final_model_params_[3*i+j] << " ";
+				outmodel << homog->final_model_params_[3*i+j] / homog->final_model_params_[3*2+2] << " ";
 			}
 		}
 		outmodel.close();
+
+        std::ofstream outmodel2((working_dir + "Hwmean.txt").c_str());
+        for (unsigned int i = 0; i < 3; ++i)
+        {
+            for (unsigned int j = 0; j < 3; ++j)
+            {
+                outmodel2 << homog->aggregated_wmean_model_params_[3*i+j] / homog->aggregated_wmean_model_params_[3*2+2]<< " ";
+            }
+        }
+        outmodel2.close();
+
+        std::ofstream outmodel3((working_dir + "Hwgmed.txt").c_str());
+        for (unsigned int i = 0; i < 3; ++i)
+        {
+            for (unsigned int j = 0; j < 3; ++j)
+            {
+                outmodel3 << homog->aggregated_wgmed_model_params_[3*i+j] / homog->aggregated_wgmed_model_params_[3*2+2] << " ";
+            }
+        }
+        outmodel3.close();
+
 		std::ofstream outinliers((working_dir + "inliers.txt").c_str());
 		for (unsigned int i = 0; i < cfg.common.numDataPoints; ++i)
 		{

@@ -7,6 +7,32 @@ sorting = importdata('../data/fundmatrix/test1/sorting.txt');
 [F,inliers] = MEX_usac(0, '../data/fundmatrix/example.cfg', true, pts, sorting, 1.5, 10000);
 F
 
+pts = importdata('../data/essential/test1/orig_pts.txt', ' ', 1);
+pts = pts.data;
+sorting = importdata('../data/essential/test1/sorting.txt');
+calib = importdata('../data/essential/test1/calib_matrices.txt');
+K1 = ParseCalib(calib(1,:));
+K2 = ParseCalib(calib(2,:));
+X1 = pts(:,1:2)';
+X1(3,:) = 1;
+X2  = pts(:,3:4)';
+X2(3,:) = 1;
+nX1 = NormalizedCoordinates(X1,K1);
+nX2 = NormalizedCoordinates(X2,K2);
+ptsNormalized = [nX1(1:2,:)' nX2(1:2,:)'];
+[F,inliers] = MEX_usac(0, '../data/essential/example_unix.cfg', true, ptsNormalized, sorting, 1.5, 10000);
+
+E = K2' * F * K1;
+[u, s, v] = svd(E);
+if (size(s,1) == size(s,2))
+    s = diag(s);
+end
+avg = (s(1) + s(2))/2;
+d = diag([avg avg 0]);
+E = u * d * v';
+
+
+%[E,inliers] = MEX_usac(0, '../data/essential/example.cfg', true, ptsNormalized, sorting, 1.5, 10000);
 
 % display some matches and epipolar lines as in
 % http://fr.mathworks.com/help/vision/ref/epipolarline.html?refresh=true
