@@ -387,6 +387,8 @@ bool USAC<ProblemType>::solve()
 			// valid model, perform evaluation
 			unsigned int inlier_count, num_points_tested;
 			bool good = static_cast<ProblemType *> (this)->evaluateModel(i, &inlier_count, &num_points_tested);
+			if (inlier_count > 10)
+				static_cast<ProblemType *>(this)->storeIntermediateModel(i, inlier_count); // RANSAAC add
 
 			// update based on verification results
 			switch (usac_verif_method_)
@@ -400,7 +402,6 @@ bool USAC<ProblemType>::solve()
 						update_best = true;
 						usac_results_.best_inlier_count_ = inlier_count;
 						storeSolution(i, usac_results_.best_inlier_count_);    // store result
-						static_cast<ProblemType *>(this)->storeIntermediateModel(i, usac_results_.best_inlier_count_); // RANSAAC add
 					}
 					break;
 				} // end case standard verification
@@ -439,7 +440,6 @@ bool USAC<ProblemType>::solve()
 						}
 					}
 				} // end case sprt
-
 			} // end switch verification method
 		} // end evaluating all models for one minimal sample
 
@@ -870,7 +870,7 @@ unsigned int USAC<ProblemType>::locallyOptimizeSolution(const unsigned int bestI
 		{
 			continue;
 		}
-		static_cast<ProblemType *>(this)->storeIntermediateModel(0, temp_inliers);
+		//static_cast<ProblemType *>(this)->storeIntermediateModel(0, temp_inliers);
 		temp_inliers = findInliers(err_ptr_[0], lo_threshold_multiplier_*usac_inlier_threshold_, &iter_inliers);
 
 		// generate least squares model from all inliers
@@ -887,7 +887,9 @@ unsigned int USAC<ProblemType>::locallyOptimizeSolution(const unsigned int bestI
 			{
 				continue;
 			}
-			static_cast<ProblemType *>(this)->storeIntermediateModel(0, temp_inliers);
+			if (j >= lo_num_iterative_steps_ - 2)
+				static_cast<ProblemType *>(this)->storeIntermediateModel(0, temp_inliers);
+
 			findInliers(err_ptr_[0], (lo_threshold_multiplier_*usac_inlier_threshold_) - (j+1)*threshold_step_size, &iter_inliers);
 			static_cast<ProblemType *>(this)->findWeights(0, iter_inliers, temp_inliers, weights);
 			if (! static_cast<ProblemType *>(this)->generateRefinedModel(iter_inliers, temp_inliers, true, weights) )

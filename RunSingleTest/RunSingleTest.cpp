@@ -8,7 +8,7 @@
 #include <cstdlib>
 #include <time.h>
 #include <vector>
-#include <estimators/OriginalAggHomogEstimator.h>
+#include "estimators/OriginalAggHomogEstimator.h"
 
 #include "config/ConfigParams.h"
 #include "estimators/FundmatrixEstimator.h"

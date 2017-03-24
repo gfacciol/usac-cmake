@@ -23,7 +23,7 @@ link_directories(
 add_executable(${MODULE_NAME}
 	${sources}
 	${headers}
-		../src/estimators/AggHomogEstimator.h ../src/estimators/OriginalAggHomogEstimator.h)
+		)
 
 target_link_libraries(${MODULE_NAME}
 	${CONFIG++_LIBRARY}
